@@ -1,0 +1,35 @@
+$schema: https://azuremlschemas.azureedge.net/latest/pipelineJob.schema.json
+type: pipeline
+display_name: data_in_c_pipeline
+jobs:
+  first_step_job:
+    command: |
+      ls ${{inputs.raw_data}}
+      make
+      ./first_step ${{inputs.raw_data}} ${{outputs.prep_data}}
+      ls ${{outputs.prep_data}}
+    inputs:
+      raw_data: 
+          type: uri_folder 
+          path: ./data
+    outputs:
+      prep_data: 
+        mode: upload
+    code: src/first_step
+    environment: 
+      image: mcr.microsoft.com/azureml/openmpi3.1.2-ubuntu18.04
+    compute: azureml:mycpucluster
+  second_step_job:
+    command: |
+      make
+      ./second_step ${{inputs.clean_data}} ${{outputs.score_data}}
+    inputs: 
+      clean_data: ${{parent.jobs.first_step_job.outputs.prep_data}}
+    outputs:
+      score_data:
+        mode: upload
+    code: src/second_step
+    environment: 
+      image: mcr.microsoft.com/azureml/openmpi3.1.2-ubuntu18.04
+    compute: azureml:mycpucluster
+    
