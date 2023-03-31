@@ -1,0 +1,1 @@
+az ml job create -f hello_world.yml --web

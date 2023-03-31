@@ -1,0 +1,11 @@
+$schema: https://azuremlschemas.azureedge.net/latest/pipelineJob.schema.json
+type: pipeline
+display_name: hello_world_pipeline
+jobs:
+  hello_job:
+    command: bash hello_world.sh
+    code: src
+    environment: 
+      image: mcr.microsoft.com/azureml/openmpi3.1.2-ubuntu18.04
+    compute: azureml:mycpucluster
+    
