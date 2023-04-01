@@ -1,0 +1,25 @@
+$schema: https://azuremlschemas.azureedge.net/latest/commandComponent.schema.json
+type: command
+
+name: step1_component
+display_name: Step1_component
+version: 1
+
+inputs:
+  raw_data: 
+    type: uri_folder 
+outputs:
+  prep_data: 
+    type: uri_folder 
+    mode: upload
+
+code: ./src/first_step
+
+environment: 
+  image: mcr.microsoft.com/azureml/openmpi3.1.2-ubuntu18.04
+
+command: |
+  ls ${{inputs.raw_data}}
+  make
+  ./first_step ${{inputs.raw_data}} ${{outputs.prep_data}}
+  ls ${{outputs.prep_data}}

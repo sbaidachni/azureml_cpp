@@ -1,0 +1,26 @@
+$schema: https://azuremlschemas.azureedge.net/latest/pipelineJob.schema.json
+type: pipeline
+display_name: data_in_c_pipeline
+jobs:
+  first_step_job:
+    type: command
+    component: azureml:step1_component@latest
+    inputs:
+      raw_data: 
+          type: uri_folder 
+          path: ./data
+    outputs:
+      prep_data: 
+        mode: upload
+    compute: azureml:mycpucluster
+  second_step_job:
+    type: command
+    component: ./step2_component.yml
+    inputs: 
+      clean_data: ${{parent.jobs.first_step_job.outputs.prep_data}}
+    outputs:
+      score_data:
+        mode: upload
+    code: src/second_step
+    compute: azureml:mycpucluster
+    

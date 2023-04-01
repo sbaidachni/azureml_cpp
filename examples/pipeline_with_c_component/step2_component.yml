@@ -1,0 +1,23 @@
+$schema: https://azuremlschemas.azureedge.net/latest/commandComponent.schema.json
+type: command
+
+name: step2_component
+display_name: Step2_component
+version: 1
+
+inputs: 
+  clean_data:
+    type: uri_folder 
+outputs:
+  score_data:
+    mode: upload
+    type: uri_folder 
+
+code: ./src/second_step
+
+environment: 
+  image: mcr.microsoft.com/azureml/openmpi3.1.2-ubuntu18.04
+
+command: |
+  make
+  ./second_step ${{inputs.clean_data}} ${{outputs.score_data}}
