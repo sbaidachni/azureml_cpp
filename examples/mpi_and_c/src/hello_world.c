@@ -1,15 +1,28 @@
 #include <stdio.h>
-#include <mpi.h>
+#include <stdlib.h>
 
-int main(int argc, char** argv){
-    int process_Rank, size_Of_Cluster;
+int main(int argc, char** argv)
+{
+    const char* mlflow_tracking = getenv("MLFLOW_TRACKING_URI");
+    printf("MLFLOW_TRACKING_URI: %s\n", mlflow_tracking);
 
-    MPI_Init(NULL, NULL);
-    MPI_Comm_size(MPI_COMM_WORLD, &size_Of_Cluster);
-    MPI_Comm_rank(MPI_COMM_WORLD, &process_Rank);
+    const char* mlflow_run = getenv("MLFLOW_RUN_ID");
+    printf("MLFLOW_RUN_ID: %s\n", mlflow_run);
 
-    printf("Hello World from process %d of %d\n", process_Rank, size_Of_Cluster);
+    const char* master_addr = getenv("MASTER_ADDR");
+    printf("MASTER_ADDR: %s\n", master_addr);
 
-    MPI_Finalize();
+    const char* master_port = getenv("MASTER_PORT");
+    printf("MASTER_PORT: %s\n", master_port);
+
+    const char* rank = getenv("RANK");
+    printf("RANK: %s\n", rank);
+
+    const char* local_rank = getenv("LOCAL_RANK");
+    printf("LOCAL_RANK: %s\n", local_rank);
+
+    const char* node_rank = getenv("NODE_RANK");
+    printf("NODE_RANK: %s\n", node_rank);
+
     return 0;
 }

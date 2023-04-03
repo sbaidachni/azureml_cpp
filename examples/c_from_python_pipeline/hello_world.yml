@@ -1,0 +1,10 @@
+$schema: https://azuremlschemas.azureedge.net/latest/commandJob.schema.json
+command: |
+  gcc -c -fPIC hello_world.c -o hello_world.o
+  gcc -shared hello_world.o -o hello_world.so
+  ls
+  python main_code.py
+code: src
+environment:
+  image: mcr.microsoft.com/azureml/openmpi3.1.2-ubuntu18.04
+compute: azureml:mycpucluster
