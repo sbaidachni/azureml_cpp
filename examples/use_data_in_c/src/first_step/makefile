@@ -18,8 +18,8 @@ clean:
 	-rm -f *.o *.d
 	-rm -f first_step
 
-seqgen3: first_step.o
-	$(CC) $(LDFLAGS) $(CFLAGS) -o $@ $@.o -lpthread -lrt
+build: first_step.o
+	$(CC) $(LDFLAGS) $(CFLAGS) -o $@ $@.o
 
 depend:
 

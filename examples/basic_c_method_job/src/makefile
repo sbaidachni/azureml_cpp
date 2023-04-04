@@ -16,10 +16,10 @@ all:	hello_world
 
 clean:
 	-rm -f *.o *.d
-	-rm -f helloworld
+	-rm -f hello_world
 
-seqgen3: hello_world.o
-	$(CC) $(LDFLAGS) $(CFLAGS) -o $@ $@.o -lpthread -lrt
+build: hello_world.o
+	$(CC) $(LDFLAGS) $(CFLAGS) -o $@ $@.o
 
 depend:
 

@@ -2,5 +2,5 @@ $schema: https://azuremlschemas.azureedge.net/latest/commandJob.schema.json
 command: bash hello_world.sh
 code: src
 environment:
-  image: mcr.microsoft.com/azureml/openmpi3.1.2-ubuntu18.04
+  image: mcr.microsoft.com/azureml/openmpi4.1.0-ubuntu20.04
 compute: azureml:mycpucluster
